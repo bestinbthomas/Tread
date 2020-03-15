@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_nav_graph.xml"
+    app:startDestination="@id/signUpFragment">
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.treadhill.app.views.onboarding.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_log_in">
+        <action
+            android:id="@+id/action_signUpFragment_to_verifyPhoneFragment"
+            app:destination="@id/verifyPhoneFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/signUpFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_signUpFragment_to_logInFragment"
+            app:destination="@id/logInFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/signUpFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_signUpFragment_to_checkUserOnboardingDoneFragment"
+            app:destination="@id/checkUserOnboardingDoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyPhoneFragment"
+        android:name="com.treadhill.app.views.onboarding.VerifyPhoneFragment"
+        android:label="Verify Phone"
+        tools:layout="@layout/fragment_verify_phone">
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_verifyPhoneFragment_to_checkUserOnboardingDoneFragment"
+            app:destination="@id/checkUserOnboardingDoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.treadhill.app.views.onboarding.UserDetailsFragment"
+        android:label="Enter Your Details"
+        tools:layout="@layout/fragment_user_details" />
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.treadhill.app.views.onboarding.LogInFragment"
+        android:label="Log In"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_logInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/signUpFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_logInFragment_to_verifyPhoneFragment"
+            app:destination="@id/verifyPhoneFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/signUpFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_logInFragment_to_checkUserOnboardingDoneFragment"
+            app:destination="@id/checkUserOnboardingDoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkUserOnboardingDoneFragment"
+        android:name="com.treadhill.app.views.onboarding.CheckUserOnboardingDoneFragment"
+        android:label="">
+        <action
+            android:id="@+id/action_checkUserOnboardingDoneFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
+        <argument
+            android:name="uid"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_checkUserOnboardingDoneFragment"
+        app:destination="@id/checkUserOnboardingDoneFragment" />
+</navigation>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "204795617165",
+    "firebase_url": "https://tread-hill.firebaseio.com",
+    "project_id": "tread-hill",
+    "storage_bucket": "tread-hill.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204795617165:android:9512ba9c7500dbdb2ea7c4",
+        "android_client_info": {
+          "package_name": "com.treadhill.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204795617165-j8mkrg8b14b3v339drr2ob0fr44qc6t8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.treadhill.app",
+            "certificate_hash": "f5c99d0c1248910079300cb4985a74789406000c"
+          }
+        },
+        {
+          "client_id": "204795617165-ttalrph938vdpksj11qfe675qgvq0uh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaR4gZy2PMFEctwkTxWLlRhfQoW3SIc-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204795617165-ttalrph938vdpksj11qfe675qgvq0uh7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

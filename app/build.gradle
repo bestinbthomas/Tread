@@ -1,0 +1,148 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'org.jetbrains.dokka'
+
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.treadhill.app"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    dokka {
+        outputFormat = 'gfm'
+        outputDirectory = "$buildDir/javadoc"
+
+        // Used for disabling auto extraction of sources and platforms in both multi-platform and single-platform modes
+        // When set to true, subProject and kotlinTasks are also omitted
+        disableAutoconfiguration = false
+
+        configuration {
+            moduleName = 'data'
+
+            // Use to include or exclude non public members.
+            includeNonPublic = true
+
+            // Do not output deprecated members. Applies globally, can be overridden by packageOptions
+            skipDeprecated = false
+
+            // Emit warnings about not documented members. Applies globally, also can be overridden by packageOptions
+            reportUndocumented = true
+
+            // Do not create index pages for empty packages
+            skipEmptyPackages = true
+
+            // This is a list of platform names that will be shown in the final result. See the "Platforms" section of this readme
+            targets = ["JVM"]
+
+            // Platform used for code analysis. See the "Platforms" section of this readme
+            platform = "JVM"
+
+            // By default, sourceRoots are taken from Kotlin Plugin, subProjects and kotlinTasks, following roots will be appended to them
+            // Full form sourceRoot declaration
+            // Repeat for multiple sourceRoots
+            sourceRoot {
+                // Path to a source root
+                path = "src"
+            }
+
+
+            // Used for linking to JDK documentation
+            jdkVersion = 8
+
+            // Disable linking to online kotlin-stdlib documentation
+            noStdlibLink = false
+
+            // Disable linking to online JDK documentation
+            noJdkLink = false
+
+        }
+    }
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:2.2.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.2.0"
+    implementation "com.vimeo.networking:vimeo-networking:1.1.3"
+
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.10.5'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.10.5'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.10.5'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.10.0'
+
+    implementation "io.coil-kt:coil:0.8.0"
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-database-ktx:19.2.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.3.1'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
+
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+    implementation 'pub.devrel:easypermissions:1.0.1'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.11.2'
+
+    implementation project(':blewrapper')
+
+    implementation project(':android-phonefield-Input')
+}
+
+apply plugin: 'com.google.gms.google-services'

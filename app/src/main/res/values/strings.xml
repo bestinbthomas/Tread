@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Treadhill</string>
+
+    <string name="clientid">212c288e43b414ed614d9a201b30ae074f7edeb2</string>
+    <string name="clientsecret">Z2KnP7OI8SSDyLCWmToneRYF5XxtEopqJFYPSVO+12ad6uZLo0EqKDhNjNlmGWO7AsiZff6St8GfY4ppvAxn6oYHifJkpf4HbQ8/uN1nBKaP6UynTBQaS27x5//78HOe</string>
+    <string name="acess_token2">b92ff721cd0b9608aa591c7b7304bf2a</string>
+    <string name="scopes">private purchased edit interact video_files public</string>
+
+    <string name="bluetooth_disabled">Bluetooth is off</string>
+    <string name="bluetooth_not_supported">Bluetooth Not supported</string>
+    <string name="bluetooth_disconnected">Bluetooth is Disconnected</string>
+    <string name="bluetooth_searching">Searching for devices …</string>
+    <string name="bluetooth_connected">Connected to %1$s</string>
+    <string name="duration">%1$d mins</string>
+    <string name="unknown_device">Unknown Device</string>
+    <string name="setting">Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="rationale_phone_state">This app needs access to your location to access bluetooth.</string>
+    <string name="scan_devices">Scan devices</string>
+    <string name="benefits">Benefits</string>
+    <string name="verification_send_to">We have sent you an SMS on %1$s with a 6-digit verification code (OTP).</string>
+    <string name="summary_score">Score: %1$s</string>
+    <string name="summary_duration">duration: %1$s mins</string>
+    <string name="summary_calories">calories: %1$s</string>
+
+
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="workout_time">Workout Time</string>
+    <string name="calories_burnt">Calories Burnt</string>
+    <string name="average_heart_rate">Average Heart Rate</string>
+    <string name="maximum_heart_rate">Maximum Heart Rate</string>
+    <string name="min">min</string>
+    <string name="kcal">kcal</string>
+    <string name="bpm">bpm</string>
+    <string name="pause">PAUSE</string>
+    <string name="resume">RESUME</string>
+
+    <string-array name="dashboard_item_list">
+        <item>Scores</item>
+        <item>Duration</item>
+        <item>Calories</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

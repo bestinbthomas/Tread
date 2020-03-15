@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.treadhill.app.views.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.treadhill.app.views.CategoryFragment"
+        android:label="Categories"
+        tools:layout="@layout/category_fragment">
+        <action
+            android:id="@+id/action_categoryFragment_to_searchFilterFragment"
+            app:destination="@id/searchFilterFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.treadhill.app.views.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_workoutSummaryFragment"
+            app:destination="@id/workoutSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.treadhill.app.views.PlayerFragment"
+        android:label="Player"
+        tools:layout="@layout/fragment_player">
+        <argument
+            android:name="video"
+            android:defaultValue="@null"
+            app:argType="com.vimeo.networking.model.Video"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_playerFragment_to_workoutSummaryFragment"
+            app:destination="@id/workoutSummaryFragment" />
+        <argument
+            android:name="treadVideo"
+            app:argType="com.treadhill.app.dataTypes.VideoItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/customWorkoutFragment"
+        android:name="com.treadhill.app.views.CustomWorkoutFragment"
+        android:label="Custom Workout"
+        tools:layout="@layout/fragment_custom_workout">
+        <action
+            android:id="@+id/action_customWorkoutFragment_to_workoutSummaryFragment"
+            app:destination="@id/workoutSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workoutSummaryFragment"
+        android:name="com.treadhill.app.views.WorkoutSummaryFragment"
+        android:label="Workout Summary"
+        tools:layout="@layout/fragment_workout_summary">
+        <argument
+            android:name="workoutSummary"
+            app:argType="com.treadhill.app.dataTypes.WorkoutSummary" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFilterFragment"
+        android:name="com.treadhill.app.views.SearchFilterFragment"
+        android:label="Workout finder"
+        tools:layout="@layout/fragment_search_filter">
+        <action
+            android:id="@+id/action_searchFilterFragment_to_filterResults"
+            app:destination="@id/filterResults" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterResults"
+        android:name="com.treadhill.app.views.FilterResults"
+        android:label="Filter Results"
+        tools:layout="@layout/fragment_filter_results">
+        <action
+            android:id="@+id/action_filterResults_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_filterResults"
+        app:destination="@id/filterResults" />
+</navigation>
