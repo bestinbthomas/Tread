@@ -69,6 +69,10 @@ class DashboardFragment : Fragment() {
         viewModel.listen(Actions.GetWeekInfo(date))
     }
 
+    /**
+     * sets date below graph
+     *
+     */
     private fun setDate() {
         val startOfWeak = date.copy()
         startOfWeak.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
@@ -77,6 +81,10 @@ class DashboardFragment : Fragment() {
         mView.dash_date.text = "${startOfWeak.getDateInFormat()} - ${endOfWeak.getDateInFormat()}"
     }
 
+    /**
+     * handle next and previous week button clicks
+     *
+     */
     private fun setOnClicks() {
         mView.next_button.setOnClickListener {
             date.add(Calendar.DATE, 7)
@@ -90,6 +98,11 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    /**
+     * Presents the WeakMetadata in graph using MPAndroidChart
+     *
+     * @param weakInfo
+     */
     private fun setupGraph(weakInfo: WeakInfo) {
         val enteries = ArrayList<BarEntry>()
 
@@ -145,6 +158,10 @@ class DashboardFragment : Fragment() {
         mView.barChart.legend.isEnabled = false
     }
 
+    /**
+     * attaches adapter to the list of video recycler view
+     *
+     */
     private fun setupRecycler() {
         adapter = SummaryRecyclerAdapter(requireContext())
         mView.video_list.adapter = adapter
@@ -154,6 +171,10 @@ class DashboardFragment : Fragment() {
             })
     }
 
+    /**
+     * Observes Weak metadata and List of summaries from viewmodel
+     *
+     */
     private fun setObservations() {
         viewModel.weakInfo.observe(this,
             Observer {
@@ -169,6 +190,10 @@ class DashboardFragment : Fragment() {
             })
     }
 
+    /**
+     * handles different options selected by the spinner - scores, calories and duration
+     *
+     */
     private fun checkSpinner() {
         mView.option_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {

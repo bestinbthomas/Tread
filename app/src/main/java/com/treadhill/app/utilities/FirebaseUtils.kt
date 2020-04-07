@@ -26,6 +26,9 @@ class FirebaseUtils {
     /**
      * uploads the heart rate to firebase realtime database
      *
+     * Path : firedb.reference.child(auth.currentUser?.displayName ?: "user").child(workoutid)
+    .child(Calendar.getInstance().timeInMillis.toString()).setValue(value)
+     *
      * @param workoutid
      * @param value
      */
@@ -38,6 +41,17 @@ class FirebaseUtils {
             }
     }
 
+    /**
+     * posts the score to Firebase realtime database for the user and leaderboard
+     *
+     * for the user record PATH : firedb.reference.child(auth.currentUser?.displayName ?: "user").child(workoutid)
+    .child(Calendar.getInstance().timeInMillis.toString()).setValue(score)
+     *
+     * For Leaderboard PATH : firedb.reference.child(workoutid).child(auth.currentUser?.displayName ?: "user").setValue(score)
+     *
+     * @param workoutid
+     * @param score
+     */
     fun setScoreForLeaderBoard(workoutid: String, score: Int) {
         firedb.reference.child(workoutid).child(auth.currentUser?.displayName ?: "user")
             .setValue(score)
@@ -51,17 +65,32 @@ class FirebaseUtils {
             }
     }
 
+    /**
+     * log out in firebase
+     *
+     */
     fun logout() = auth.signOut()
 
     fun getName(): String? = auth.currentUser?.displayName
     fun getEmail(): String? = auth.currentUser?.email
 
+    /**
+     * posts video to firestore
+     *
+     * PATH : firestore.collection("videos").document(video.name).set(video)
+     *
+     * @param videoItems
+     */
     fun postVideo(videoItems: List<VideoItem>) {
         videoItems.forEach { video ->
             firestore.collection("videos").document(video.name).set(video)
         }
     }
 
+    /**
+     * Get all videos from firebase firestore
+     *
+     */
     suspend fun getVideos() = suspendCancellableCoroutine<Result<List<VideoItem>>> { continuation ->
         firestore.collection("videos").get()
             .addOnSuccessListener { querrySnapshot ->
@@ -76,6 +105,13 @@ class FirebaseUtils {
             }
     }
 
+    /**
+     * get Workouts and Meta data for the weak
+     *
+     * PATH : firestore.collection("users").document(auth.currentUser!!.uid).collection(weak).get()
+     *
+     * @param date
+     */
     suspend fun getWeakWorkouts(date: Calendar) =
         suspendCancellableCoroutine<Result<Pair<WeakInfo, List<WorkoutSummary>>>> { continuation ->
             val weak = "${date[Calendar.YEAR]} weak: ${date[Calendar.WEEK_OF_YEAR]}"
@@ -92,7 +128,7 @@ class FirebaseUtils {
                         } else {
                             Log.i("FIRE UTILS", "recieved info")
                             weakInfo = documentSnapshot.toObject(WeakInfo::class.java) ?: WeakInfo()
-                            Log.i("FIRE UTILS", "weakinfo recieved ${weakInfo?.scores ?: ""} : ${weakInfo?.duration ?: ""} : ${weakInfo?.calories ?: ""}")
+                            Log.i("FIRE UTILS", "weakinfo recieved ${weakInfo.scores} : ${weakInfo.duration} : ${weakInfo.calories}")
                         }
                     }
 
@@ -104,6 +140,13 @@ class FirebaseUtils {
 
         }
 
+    /**
+     * get the metadata for weak
+     *
+     * PATH : firestore.collection("users").document(auth.currentUser!!.uid).collection(weak).document("metadata").get()
+     *
+     * @param date
+     */
     suspend fun getWeakMeta(date: Calendar) =
         suspendCancellableCoroutine<Result<WeakInfo>> { continuation ->
             val weak = "${date[Calendar.YEAR]} weak: ${date[Calendar.WEEK_OF_YEAR]}"
@@ -118,6 +161,16 @@ class FirebaseUtils {
                 }
         }
 
+    /**
+     * post summary to firebase firestore
+     * first gets the existing metadata
+     * then updates it and post it
+     *
+     * metadata PATH : firestore.collection("users").document(auth.currentUser!!.uid).collection(weak).document("metadata").set(modifiedMetadata)
+     * summary PATH : firestore.collection("users").document(auth.currentUser!!.uid).collection(weak).add(workoutSummary)
+     *
+     * @param workoutSummary
+     */
     suspend fun postSummary(workoutSummary: WorkoutSummary) {
         val dateNow = Calendar.getInstance()
         val weakMetaResult = getWeakMeta(dateNow)

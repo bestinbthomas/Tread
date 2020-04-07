@@ -53,6 +53,9 @@ import kotlin.collections.ArrayList
 
 class PlayerFragment : Fragment(), Player.EventListener {
 
+    /**
+     * video from Firebase DB
+     */
     private lateinit var treadVideo: VideoItem
     private var mExoplayerFullScreen: Boolean = false
 
@@ -66,6 +69,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
     private lateinit var playerView: PlayerView
     private lateinit var vidHeartRate: TextView
     private lateinit var heratrateSlider: Slider
+
+    /**
+     * Video recieived from Vimeo
+     */
     private var video: Video? = null
     private lateinit var mView: View
     private lateinit var viewModel: MainViewModel
@@ -82,6 +89,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
     private var workoutId = ""
     private var zoneIndex = 0
     var currZone = 0
+
+    /**
+     * Timer that updates the zone every 10 seconds checking the
+     */
     val timer = object : CountDownTimer(10000000000000, 10000) {
         override fun onFinish() {
         }
@@ -192,6 +203,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
 
     }
 
+    /**
+     * getting data from the Leaderboard and Listening for updates
+     *
+     */
     private fun initLeaderboard() {
         mView.leaderboard.adapter = leaderboardAdapter
         val leaderboardList = ArrayList<LeaderboardItem>()
@@ -221,6 +236,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
 
     }
 
+    /**
+     * observe HeartRate, BluetoothState Live data from ViewModel
+     *
+     */
     private fun setObservations() {
         viewModel.heartRate.observe(this,
             Observer {
@@ -258,6 +277,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
             })
     }
 
+    /**
+     * Hide the Heart rate
+     *
+     */
     private fun hideHR() {
         isDviceConnected = false
         vidHeartRate.visibility = View.INVISIBLE
@@ -265,6 +288,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
         mView.video_calories.visibility = View.GONE
     }
 
+    /**
+     * Show the Heart rate
+     *
+     */
     private fun showHR() {
         isDviceConnected = true
         vidHeartRate.visibility = View.VISIBLE
@@ -292,6 +319,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
 //        mView.benifits_list.layoutParams = params
 //    }
 
+    /**
+     * set the Ui elements Like title, difficulty, etc form the Video
+     *
+     */
     private fun setUI() {
         Log.e("player", "setui called")
         mView.duration.text = resources.getString(R.string.duration, this.treadVideo.VideoLength)
@@ -302,6 +333,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
         mView.creator_name.text = treadVideo.CreatorName
     }
 
+    /**
+     * sets OnClickListeners to Fullscreen, Stop Workout and Leaderboard Toggle
+     *
+     */
     private fun setOnClicks() {
         Log.e("player", "onclick called")
         exo_fullscreen_icon.setOnClickListener {
@@ -380,6 +415,11 @@ class PlayerFragment : Fragment(), Player.EventListener {
         }
     }
 
+    /**
+     * Get the MediaSource for exoplayer using ExoUtils and set the player
+     *
+     * @param video this the video recieved from vimeo
+     */
     private fun initializePlayer(video: Video) {
         //Log.i("EXO","video null in init")
         Log.e("player", "init player called")
@@ -398,7 +438,10 @@ class PlayerFragment : Fragment(), Player.EventListener {
         }
     }
 
-
+    /**
+     * release the player on Stop to avoid memory leaks
+     *
+     */
     private fun releasePlayer() {
         Log.e("player", "release player called")
         if (player != null) {
@@ -453,7 +496,6 @@ class PlayerFragment : Fragment(), Player.EventListener {
 
     }
 
-
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         Log.e("player", "config change called")
@@ -486,8 +528,19 @@ class PlayerFragment : Fragment(), Player.EventListener {
         }
     }
 
+    /**
+     * Get the zone (0 - 5) from the given Heart rate
+     *
+     * @param heartRate
+     */
     private fun getZone(heartRate: Int) = ((heartRate / workoutRecorder.maxHR) * 10).toInt() - 5
 
+    /**
+     * Calculates the score for given heart rate
+     *
+     * @param heartRate
+     * @return score
+     */
     private fun calculateScore(heartRate: Int): Int {
         val zone = getZone(heartRate)
         if (zone == currZone) return 4

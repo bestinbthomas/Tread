@@ -58,6 +58,10 @@ class CategoryFragment : Fragment() {
         mView.Category_tabs.setupWithViewPager(mView.view_pager)
     }
 
+    /**
+     * The Categories are implemented as Viewpager and it is initialised here
+     *
+     */
     private fun setupViewPager() {
         categories.add(Category("HIIT", arrayListOf()))
         categories.add(Category("Pilates", arrayListOf()))
@@ -76,6 +80,10 @@ class CategoryFragment : Fragment() {
 
     }
 
+    /**
+     * observe Live data from view model - filertSearch and Video Lst
+     *
+     */
     private fun setupObservations() {
         viewModel.filterSearch.observe(this,
             Observer {
@@ -95,6 +103,11 @@ class CategoryFragment : Fragment() {
             })
     }
 
+    /**
+     * segregate the videos into categories
+     *
+     * @param videos
+     */
     private fun populateCategories(videos: List<VideoItem>) {
         categories = arrayListOf()
         categories.add(Category("HIIT", arrayListOf()))

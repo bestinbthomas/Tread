@@ -48,11 +48,16 @@ class OnboardingActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Login with Google
+     *
+     * @param account received from onActivityResult
+     */
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         Log.d("Google Auth", "firebaseAuthWithGoogle:" + account?.id!!)
 
         val auth = FirebaseAuth.getInstance()
-        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -69,6 +74,11 @@ class OnboardingActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * navigate to main activity if login sucessful
+     *
+     * @param user
+     */
     private fun updateUI(user: FirebaseUser?) {
         user?.let {
             Log.i("GoogleSignIn", "uid ${user.uid}")

@@ -113,9 +113,9 @@ public class BLESession extends LiveData {
             log("service disconnected");
             mBLEService = null;
         }
-    };
+    }
 
-    private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
+	private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();

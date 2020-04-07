@@ -37,6 +37,10 @@ class HomeFragment : Fragment() {
     private val ItemList1 = ArrayList<VideoThumb>()
     private val adapter1 = HomeRecyclerAdapter(ItemList1)
     private lateinit var mView: View
+
+    /**
+     * Moves the Moving Carousel every 2 seconds
+     */
     private val counter = object : CountDownTimer(1000000, 2000) {
         override fun onFinish() {
             startCounter()
@@ -97,6 +101,12 @@ class HomeFragment : Fragment() {
         counter.cancel()
     }
 
+    /**
+     * Set Up The Calender
+     *
+     * Calender is implemented as 7 TextViews the date is obtained From Java Calender Class
+     *
+     */
     private fun setupCal() {
         val calendar = Calendar.getInstance()
         val dow = calendar[Calendar.DAY_OF_WEEK]
@@ -141,6 +151,15 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * Sets adapters for Moving Carousel, Horizontal Videos List and Horizontal Trainers List
+     *
+     * Moving Carousel is implemented using a ViewPager,
+     * Horizontal Videos List and Horizontal Trainers List are implemented using Recycler Views
+     *
+     * fills Mock data for trainer recycler view
+     *
+     */
     private fun setupRecyclers() {
         val imgs = IntArray(3)
         imgs[0] = R.drawable.slider_1
@@ -193,6 +212,10 @@ class HomeFragment : Fragment() {
 //            })
     }
 
+    /**
+     * observing the ViewModel Live datas - HeartRate, bluetooth state, Video List
+     *
+     */
     private fun observeViewModel() {
         viewModel.treadVideoList.observe(this,
             Observer {

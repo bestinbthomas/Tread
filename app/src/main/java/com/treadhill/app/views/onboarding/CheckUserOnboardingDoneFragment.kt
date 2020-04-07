@@ -15,6 +15,10 @@ import com.treadhill.app.dataTypes.User
 import com.treadhill.app.highOrder.*
 import com.treadhill.app.views.MainActivity
 
+/**
+ * Dummy Fragment to check if Onboarding is done in firebase
+ *
+ */
 class CheckUserOnboardingDoneFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

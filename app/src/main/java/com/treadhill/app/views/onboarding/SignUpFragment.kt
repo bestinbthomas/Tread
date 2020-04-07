@@ -64,7 +64,7 @@ class SignUpFragment : Fragment() {
             if (validateInput()) {
                 when (isEmail) {
                     true -> signUpWithEmailPassword()
-                    false -> signUpWithPhonePassword()
+                    false -> signUpWithPhone()
                 }
             }
         }
@@ -92,6 +92,10 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    /**
+     * update view for signing up with email
+     *
+     */
     private fun emailSelected() {
         isEmail = true
         emailPhoneInputLayout.editText!!.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
@@ -101,6 +105,10 @@ class SignUpFragment : Fragment() {
         mView.countryListSpinner.visibility = View.GONE
     }
 
+    /**
+     * update view for signing up with phone number
+     *
+     */
     private fun phoneSelected() {
         isEmail = false
         emailPhoneInputLayout.editText!!.inputType = InputType.TYPE_CLASS_PHONE
@@ -111,6 +119,10 @@ class SignUpFragment : Fragment() {
 
     }
 
+    /**
+     * Firebase Sign up with Email and Password
+     *
+     */
     private fun signUpWithEmailPassword() {
         mAuth.createUserWithEmailAndPassword(
                 emailPhoneInputLayout.editText!!.text.toString(),
@@ -131,6 +143,11 @@ class SignUpFragment : Fragment() {
             }
     }
 
+    /**
+     * navigate to MainActivity if Login successful (user not null)
+     *
+     * @param user received from signUpWithEmailPassword()
+     */
     private fun updateUI(user: FirebaseUser?) {
         user?.let {
             findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToCheckUserOnboardingDoneFragment(it.uid))
@@ -138,19 +155,26 @@ class SignUpFragment : Fragment() {
 
     }
 
-    private fun signUpWithPhonePassword() {
+    /**
+     * navigate to verifyPhoneFragment to verify phone
+     *
+     */
+    private fun signUpWithPhone() {
         val phoneNumber = "+${CountrySpinnerUtils.countryAreaCodes[mView.countryListSpinner.selectedItemPosition]}${mView.email_phone_il.editText!!.text}"
         showSnackbar(phoneNumber)
         findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToVerifyPhoneFragment(phoneNumber))
     }
 
-
+    /**
+     * checks the input fields and validates the input
+     *
+     * @return true if the entered value ire valid
+     */
     private fun validateInput(): Boolean {
         if (emailPhoneInputLayout.editText!!.text.isNullOrEmpty()) {
             emailPhoneInputLayout.error = "This field cannot be blank"
             return false
         }
-
 
         if (isEmail) {
             if (passwordInputLayout.editText!!.text.isNullOrEmpty()) {

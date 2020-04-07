@@ -72,6 +72,9 @@ class MainViewModel(val context: Context) : ViewModel(), CoroutineScope {
 
     val filterSearch = MutableLiveData<Boolean>()
 
+    /**
+     * get videos from vimeo and DB
+     */
     init {
         mutableEmail.value = firebaseUtils.getEmail()
         launch {
@@ -115,8 +118,14 @@ class MainViewModel(val context: Context) : ViewModel(), CoroutineScope {
 
     }
 
+    /**
+     * handle commands from activity or fragment
+     *
+     * @param action
+     * @return
+     */
     fun listen(action: Actions): Any = when (action) {
-        is SearchChange -> filterVideos(FilterOptions(querry = action.querry ?: ""))
+        is SearchChange -> filterVideos(FilterOptions(query = action.querry ?: ""))
         is PostHeartRate -> postHeartrate(action.workoutId, action.value)
         Logout -> {
             firebaseUtils.logout()
@@ -160,7 +169,7 @@ class MainViewModel(val context: Context) : ViewModel(), CoroutineScope {
 
         val res = firebaseUtils.getWeakWorkouts(date)
         if (res.value != null) {
-            Log.i("VEW MODEL", "weakinfo recieved ${res.value.first.scores ?: ""} : ${res.value.first.duration ?: ""} : ${res.value.first.calories ?: ""}")
+            Log.i("VEW MODEL", "weakinfo recieved ${res.value.first.scores} : ${res.value.first.duration} : ${res.value.first.calories}")
             mutableWeakInfo.value = res.value.first
             mutableWeakWorkoutSummaries.value = res.value.second.sortedByDescending { it.timeStamp }
         }

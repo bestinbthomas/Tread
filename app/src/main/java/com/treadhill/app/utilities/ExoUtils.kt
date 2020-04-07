@@ -15,6 +15,11 @@ import com.google.android.exoplayer2.util.Util
 import com.treadhill.app.R
 import com.vimeo.networking.model.Video
 
+/**
+ * Utility Class for Exoplayer
+ *
+ * @property context
+ */
 class ExoUtils(val context: Context) {
 
     companion object {
@@ -37,6 +42,17 @@ class ExoUtils(val context: Context) {
 
     val QualityList = ArrayList<String>()
 
+    /**
+     * get media source for exoplayer
+     *
+     * tries for DashUrl
+     * then for HlsUrl
+     * then MP4 url
+     * else null
+     *
+     * @param video
+     * @return MediaSource
+     */
     fun getMediaSource(video: Video): MediaSource? {
         val dataSourceFactory = DefaultDataSourceFactory(
             context,

@@ -298,7 +298,7 @@ public class BluetoothController implements BluetoothManager, BLEServiceCallback
 
     @Override
     public void setGoogleApiClient(GoogleApiClient googleApiClient) {
-        this.googleApiClient = googleApiClient;
+        BluetoothController.googleApiClient = googleApiClient;
     }
 
     @Override

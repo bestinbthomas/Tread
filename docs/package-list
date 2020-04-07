@@ -1,0 +1,18 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+$dokka.location:com.treadhill.app.highOrder$convertDptoPx(android.view.View, kotlin.Int)com.treadhill.app.high-order/android.view.-view/convert-dpto-px.md
+$dokka.location:com.treadhill.app.highOrder$copy(java.util.Calendar)com.treadhill.app.high-order/java.util.-calendar/copy.md
+$dokka.location:com.treadhill.app.highOrder$findCalories(kotlin.Int, kotlin.Int, kotlin.Int, kotlin.String, kotlin.Float)com.treadhill.app.high-order/kotlin.-int/find-calories.md
+$dokka.location:com.treadhill.app.highOrder$getDateInFormat(java.util.Calendar)com.treadhill.app.high-order/java.util.-calendar/get-date-in-format.md
+$dokka.location:com.treadhill.app.highOrder$getDateTimeInFormat(java.util.Calendar)com.treadhill.app.high-order/java.util.-calendar/get-date-time-in-format.md
+$dokka.location:com.treadhill.app.highOrder$showSnackbar(androidx.appcompat.app.AppCompatActivity, kotlin.String, kotlin.Int, kotlin.String, kotlin.Function1((android.view.View, kotlin.Unit)))com.treadhill.app.high-order/androidx.appcompat.app.-app-compat-activity/show-snackbar.md
+$dokka.location:com.treadhill.app.highOrder$showSnackbar(androidx.fragment.app.Fragment, kotlin.String, kotlin.Int, kotlin.String, kotlin.Function1((android.view.View, kotlin.Unit)))com.treadhill.app.high-order/androidx.fragment.app.-fragment/show-snackbar.md
+com.treadhill.app.adapters
+com.treadhill.app.dataTypes
+com.treadhill.app.factory_and_ingection
+com.treadhill.app.highOrder
+com.treadhill.app.utilities
+com.treadhill.app.viewModel
+com.treadhill.app.views
+com.treadhill.app.views.customViews
+com.treadhill.app.views.onboarding

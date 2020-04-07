@@ -4,6 +4,10 @@ import com.treadhill.app.dataTypes.FilterOptions
 import com.treadhill.app.dataTypes.WorkoutSummary
 import java.util.*
 
+/**
+ * Defines commands given to view model
+ *
+ */
 sealed class Actions {
     data class SearchChange(val querry: String?, val submit: Boolean = false) : Actions()
     data class PostHeartRate(val workoutId: String, val value: Int) : Actions()

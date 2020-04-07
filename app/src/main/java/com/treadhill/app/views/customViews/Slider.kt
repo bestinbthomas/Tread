@@ -8,6 +8,17 @@ import com.google.android.exoplayer2.util.Log
 import com.treadhill.app.R
 import com.treadhill.app.highOrder.convertDptoPx
 
+/**
+ * This this the Slider view that is inflated on the Player and Custom workout
+ *
+ * @constructor
+ *
+ *
+ * @param context
+ * @param attrs
+ * @param defStyleAttr
+ * @param defStyleRes
+ */
 class Slider constructor(
     context: Context?,
     attrs: AttributeSet?,
@@ -105,7 +116,13 @@ class Slider constructor(
         setZone(100f, 120f)
     }
 
-    fun setZone(zoneStart: Float, zoneEnd: Float) {
+    /**
+     * set the target zone
+     *
+     * @param zoneStart value from maxRate*0.5 to maxRate*0.9
+     * @param zoneEnd value from maxRate*0.6 to maxRate
+     */
+    private fun setZone(zoneStart: Float, zoneEnd: Float) {
         this.zoneStart = zoneStart
         this.zoneEnd = zoneEnd
         var rad = mHeight / 2f
@@ -161,6 +178,10 @@ class Slider constructor(
 
     }
 
+    /**
+     * hide the target zone
+     *
+     */
     fun disableBulge() {
         bulge = false
         base?.let { base ->
@@ -173,10 +194,17 @@ class Slider constructor(
 
     }
 
+    /**
+     * move the target zone to given zone
+     *
+     * @param zone value from 0 to 4
+     */
     fun moveSlider(zone: Int) {
-        val start = (50f + (zone * 10f)) * maxRate / 100
-        val end = (60f + (zone * 10f)) * maxRate / 100
-        setZone(start, end)
+        if(zone in 0..4) {
+            val start = (50f + (zone * 10f)) * maxRate / 100
+            val end = (60f + (zone * 10f)) * maxRate / 100
+            setZone(start, end)
+        }
     }
 
 }

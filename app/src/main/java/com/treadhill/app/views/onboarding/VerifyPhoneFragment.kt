@@ -20,7 +20,10 @@ import com.treadhill.app.highOrder.showSnackbar
 import kotlinx.android.synthetic.main.fragment_verify_phone.view.*
 import java.util.concurrent.TimeUnit
 
-
+/**
+ * Fragment to check the OTP sent to the user
+ *
+ */
 class VerifyPhoneFragment : Fragment() {
 
     private var codeSent = false
@@ -30,6 +33,9 @@ class VerifyPhoneFragment : Fragment() {
     lateinit var mView: View
     val mAuth = FirebaseAuth.getInstance()
 
+    /**
+     *
+     */
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,12 +60,14 @@ class VerifyPhoneFragment : Fragment() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
+                /**
+                 *  This callback will be invoked in two situations:
+                 1 - Instant verification. In some cases the phone number can be instantly
+                     verified without needing to send or enter a verification code.
+                 2 - Auto-retrieval. On some devices Google Play services can automatically
+                     detect the incoming verification SMS and perform verification without
+                     user action.
+                 */
                 Log.d("Auth", "onVerificationCompleted:$credential")
                 code = credential.smsCode ?: ""
                 mView.otp_edit_text!!.setText(code, TextView.BufferType.EDITABLE)
@@ -68,20 +76,20 @@ class VerifyPhoneFragment : Fragment() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                // This callback is invoked in an invalid request for verification is made,
-                // for instance if the the phone number format is not valid.
+                 /**
+                  * This callback is invoked in an invalid request for verification is made,
+                 for instance if the the phone number format is not valid.
+                  */
                 Log.w("Auth", "onVerificationFailed", e)
 
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
                     // ...
+                    showSnackbar("invalid request")
                 } else if (e is FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
-                    // ...
+                    showSnackbar("Too many requests sent from the number")
                 }
 
-                // Show a message and update the UI
-                // ...
             }
 
             override fun onCodeSent(
@@ -124,6 +132,11 @@ class VerifyPhoneFragment : Fragment() {
         }
     }
 
+    /**
+     * request OTP from firebase
+     *
+     * @param phoneNumber
+     */
     fun logInWithPhone(phoneNumber: String) {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -134,6 +147,11 @@ class VerifyPhoneFragment : Fragment() {
             callbacks) // OnVerificationStateChangedCallbacks
     }
 
+    /**
+     * sigin in with the credentials
+     *
+     * @param credential
+     */
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->

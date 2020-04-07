@@ -29,7 +29,7 @@ public class Device {
     }
 
     public void setDeviceAddress(String deviceAddress) {
-        PreferenceClass.getEditor(context).putString(this.deviceAddress, deviceAddress).apply();
+        PreferenceClass.getEditor(context).putString(Device.deviceAddress, deviceAddress).apply();
     }
 
     @Override

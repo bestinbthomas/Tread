@@ -16,9 +16,6 @@ import com.treadhill.app.factory_and_ingection.InjectionUtils
 import com.treadhill.app.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_filter_results.view.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class FilterResults : Fragment() {
 
     private lateinit var viewModel: MainViewModel
@@ -44,7 +41,6 @@ class FilterResults : Fragment() {
         ).get(MainViewModel::class.java)
 
         val videos: ArrayList<VideoItem> = (viewModel.treadVideoList.value as ArrayList)
-            ?: arrayListOf()
         val adapter = CategoryRecyclerAdapter(requireContext(), videos)
         mView.filteredList.adapter = adapter
         mView.filteredList.layoutManager = LinearLayoutManager(requireContext(),

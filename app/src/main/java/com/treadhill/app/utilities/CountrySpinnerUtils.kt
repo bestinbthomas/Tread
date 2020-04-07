@@ -1,5 +1,9 @@
 package com.treadhill.app.utilities
 
+/**
+ * maps country name to country Area code
+ * ALERT : do not edit
+ */
 object CountrySpinnerUtils {
     val countryNames = listOf("Afghanistan", "Albania",
         "Algeria", "Andorra", "Angola", "Antarctica", "Argentina",

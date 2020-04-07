@@ -88,6 +88,10 @@ class LogInFragment : Fragment() {
         }
     }
 
+    /**
+     * update view for Logging in with email
+     *
+     */
     private fun emailSelected() {
         isEmail = true
         emailPhoneInputLayout.editText!!.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
@@ -96,6 +100,10 @@ class LogInFragment : Fragment() {
         mView.countryListSpinner.visibility = View.GONE
     }
 
+    /**
+     * update view for Logging in with phone number
+     *
+     */
     private fun phoneSelected() {
         isEmail = false
         emailPhoneInputLayout.editText!!.inputType = InputType.TYPE_CLASS_PHONE
@@ -105,12 +113,20 @@ class LogInFragment : Fragment() {
     }
 
 
+    /**
+     * navigate to verifyPhoneFragment to verify phone
+     *
+     */
     private fun loginpWithPhone() {
         val phoneNumber = "+${CountrySpinnerUtils.countryAreaCodes[mView.countryListSpinner.selectedItemPosition]}${mView.email_phone_il.editText!!.text}"
         showSnackbar(phoneNumber)
         findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToVerifyPhoneFragment(phoneNumber))
     }
 
+    /**
+     * Firebase Login with Email and Password
+     *
+     */
     private fun logInWithEmailPassword() {
         mAuth.signInWithEmailAndPassword(
                 emailPhoneInputLayout.editText!!.text.toString(),
@@ -134,12 +150,22 @@ class LogInFragment : Fragment() {
             }
     }
 
+    /**
+     * navigate to MainActivity if Login successful (user not null)
+     *
+     * @param user received from logInWithEmailPassword()
+     */
     private fun updateUI(user: FirebaseUser?) {
         user?.let {
             findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToCheckUserOnboardingDoneFragment(it.uid))
         }
     }
 
+    /**
+     * checks the input fields and validates the input
+     *
+     * @return true if the entered value ire valid
+     */
     private fun validateInput(): Boolean {
         if (emailPhoneInputLayout.editText!!.text.isNullOrEmpty()) {
             emailPhoneInputLayout.error = "This field cannot be blank"

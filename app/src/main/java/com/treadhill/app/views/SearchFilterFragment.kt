@@ -26,6 +26,10 @@ import com.treadhill.app.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_search_filter.*
 import kotlinx.android.synthetic.main.fragment_search_filter.view.*
 
+/**
+ * Filter Page with options to filter the Videos
+ *
+ */
 class SearchFilterFragment : Fragment() {
 
     lateinit var viewModel: MainViewModel
@@ -67,6 +71,10 @@ class SearchFilterFragment : Fragment() {
         Log.e("FILTER", "filter fragment start over")
     }
 
+    /**
+     * Sets up the Duration Slider to select the duration
+     *
+     */
     private fun setUpSlider() {
         mView.duration_slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -81,6 +89,10 @@ class SearchFilterFragment : Fragment() {
         })
     }
 
+    /**
+     * observe filterOptions live data from ViewModels
+     *
+     */
     private fun setObservations() {
         viewModel.filterOptions.observe(this,
             Observer {
@@ -89,10 +101,14 @@ class SearchFilterFragment : Fragment() {
                 typeAdapter.setSelectedList(it.filterTypes)
                 difficultyAdapter.setSelectedList(it.filterDifficulties)
                 duration_slider.progress = it.filterDuration
-                search_edit_text.text = Editable.Factory.getInstance().newEditable(it.querry)
+                search_edit_text.text = Editable.Factory.getInstance().newEditable(it.query)
             })
     }
 
+    /**
+     * Sets the search Field to enter the search data
+     *
+     */
     private fun seteditText() {
         mView.search_edit_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) = Unit
@@ -101,16 +117,22 @@ class SearchFilterFragment : Fragment() {
                 Unit
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                options.querry = s.toString()
+                options.query = s.toString()
             }
 
         })
     }
 
+    /** Handle Clicks on back button, Filter button, and reset button
+     *
+     */
     private fun setClickliseners() {
         mView.back_botton.setOnClickListener {
             findNavController().popBackStack()
         }
+        /**
+         * get the selected Items from the respective recycler view and update FilterOptions
+         */
         mView.filter_button.setOnClickListener {
             options.filterDifficulties = difficultyAdapter.selectedItems
             options.filterTypes = typeAdapter.selectedItems
@@ -122,6 +144,10 @@ class SearchFilterFragment : Fragment() {
         }
     }
 
+    /**
+     * attach adapters to Type, Difficulty, Trainers Recycler view
+     *
+     */
     private fun setupRecycles() {
 
         mView.types_recyclerView.adapter = typeAdapter

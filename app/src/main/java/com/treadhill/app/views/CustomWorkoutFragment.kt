@@ -36,12 +36,6 @@ class CustomWorkoutFragment : Fragment() {
             (totalHR / count)
         else 0
     private var heartRate = 0
-    private val time: Float
-        get() {
-            if (isTimerRunning)
-                return (SystemClock.elapsedRealtime() - mView.timer.base).toFloat() / 3600000f
-            else return pauseOffset.toFloat() / 3600000f
-        }
 
     private lateinit var workoutRecorder: WorkoutRecorder
     private var workoutId = "CustomWorkout"
@@ -90,6 +84,10 @@ class CustomWorkoutFragment : Fragment() {
         setupSlider()
     }
 
+    /**
+     * Finishes the workout, get summary from WorkoutRecorder and navigate to Summary page
+     *
+     */
     private fun stopWorkout() {
         if (workoutRecorder.startTime != 0.toLong()) {
             val workoutStats = workoutRecorder.finishWorkout(SystemClock.elapsedRealtime())
@@ -114,10 +112,18 @@ class CustomWorkoutFragment : Fragment() {
 
     }
 
+    /**
+     * disable Target zone on slider
+     *
+     */
     private fun setupSlider() {
         mView.heart_slider.disableBulge()
     }
 
+    /**
+     * observe Heart rate Live data from ViewModel
+     *
+     */
     private fun setObservations() {
         viewModel.heartRate.observe(this,
             Observer {
@@ -125,6 +131,13 @@ class CustomWorkoutFragment : Fragment() {
             })
     }
 
+    /**
+     * update the UI after recieving the HR
+     * calls checkZoneChange(this.heartRate) on WorkoutRecorder,
+     * gets calories from recorder
+     *
+     * @param heartRate
+     */
     private fun setHeartRate(heartRate: String) {
         mView.heart_rate.text = heartRate
         mView.heart_slider.heartRate = heartRate.toFloat()
@@ -145,6 +158,10 @@ class CustomWorkoutFragment : Fragment() {
         }
     }
 
+    /**
+     * start, pause and resume the workout
+     *
+     */
     private fun startStopTimer() {
         if (!isTimerRunning) {
             if (pauseOffset == 0.toLong())
@@ -177,6 +194,10 @@ class CustomWorkoutFragment : Fragment() {
         }
     }
 
+    /**
+     * reset the timer
+     *
+     */
     private fun resetTimer() {
         mView.timer.base = SystemClock.elapsedRealtime()
         pauseOffset = 0
